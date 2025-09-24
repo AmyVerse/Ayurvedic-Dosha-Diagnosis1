@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your Ayurvedic Analysis Results</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        max-width: 1000px;
+        margin: 30px auto;
+        padding: 0 20px;
+        background: linear-gradient(135deg, #f9fdf8 0%, #e8f5e9 100%);
+        color: #333;
+        line-height: 1.6;
+      }
+      h1 {
+        text-align: center;
+        color: #2f6d3c;
+        margin-bottom: 10px;
+        font-size: 2.5em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 40px;
+        font-style: italic;
+        font-size: 1.2em;
+      }
+      .result {
+        margin-top: 30px;
+        padding: 30px;
+        background: linear-gradient(135deg, #e8f5e9 0%, #f0f8f0 100%);
+        border-left: 6px solid #4caf50;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+      .result h2 {
+        margin-top: 0;
+        color: #2f6d3c;
+        font-size: 2em;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .dosha-result {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+      }
+      .dosha-card {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+      .dosha-card:hover {
+        transform: translateY(-5px);
+      }
+      .dosha-name {
+        font-size: 1.5em;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
+      .dosha-level {
+        font-size: 1.3em;
+        font-weight: 700;
+        padding: 10px 20px;
+        border-radius: 25px;
+        display: inline-block;
+        margin-top: 10px;
+      }
+      .kapha {
+        border-top: 5px solid #8bc34a;
+      }
+      .kapha .dosha-name {
+        color: #689f38;
+      }
+      .pitta {
+        border-top: 5px solid #ff5722;
+      }
+      .pitta .dosha-name {
+        color: #d84315;
+      }
+      .vata {
+        border-top: 5px solid #2196f3;
+      }
+      .vata .dosha-name {
+        color: #1565c0;
+      }
+      .level-high {
+        background: #ffebee;
+        color: #c62828;
+        border: 2px solid #ef5350;
+      }
+      .level-medium {
+        background: #fff8e1;
+        color: #ef6c00;
+        border: 2px solid #ffa726;
+      }
+      .level-normal {
+        background: #e8f5e9;
+        color: #2e7d32;
+        border: 2px solid #66bb6a;
+      }
+      .explanation {
+        background: #fff9c4;
+        border: 2px solid #f9a825;
+        border-radius: 12px;
+        padding: 25px;
+        margin: 30px 0;
+      }
+      .explanation h3 {
+        color: #f57f17;
+        margin-top: 0;
+        font-size: 1.4em;
+      }
+      .explanation p {
+        margin: 15px 0;
+        font-size: 1.05em;
+      }
+      .disclaimer {
+        background: #ffebee;
+        border: 2px solid #f48fb1;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 30px 0;
+        text-align: center;
+      }
+      .disclaimer p {
+        margin: 0;
+        color: #ad1457;
+        font-weight: 500;
+      }
+      .action-buttons {
+        text-align: center;
+        margin: 40px 0;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-block;
+        padding: 15px 30px;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1.1em;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      }
+      .btn-primary {
+        background: linear-gradient(45deg, #4caf50, #45a049);
+        color: white;
+      }
+      .btn-secondary {
+        background: linear-gradient(45deg, #2196f3, #1976d2);
+        color: white;
+      }
+      .summary-card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        margin: 20px 0;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #4caf50;
+      }
+      .summary-card h4 {
+        color: #2f6d3c;
+        margin-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🌿 Your Ayurvedic Analysis</h1>
+    <p class="subtitle">Your constitutional balance revealed</p>
+
+    <div class="result">
+      <h2>🔎 Dosha Analysis Results</h2>
+
+      <div class="dosha-result">
+        <div class="dosha-card kapha">
+          <div class="dosha-name">🌍 Kapha</div>
+          <p style="margin: 10px 0; color: #666">Earth + Water Elements</p>
+          <div
+            class="dosha-level level-{{ kapha.lower() if kapha.lower() in ['high', 'medium', 'normal'] else 'normal' }}"
+          >
+            {{ kapha }} Level
+          </div>
+        </div>
+
+        <div class="dosha-card pitta">
+          <div class="dosha-name">🔥 Pitta</div>
+          <p style="margin: 10px 0; color: #666">Fire + Water Elements</p>
+          <div
+            class="dosha-level level-{{ pitta.lower() if pitta.lower() in ['high', 'medium', 'normal'] else 'normal' }}"
+          >
+            {{ pitta }} Level
+          </div>
+        </div>
+
+        <div class="dosha-card vata">
+          <div class="dosha-name">💨 Vata</div>
+          <p style="margin: 10px 0; color: #666">Air + Space Elements</p>
+          <div
+            class="dosha-level level-{{ vata.lower() if vata.lower() in ['high', 'medium', 'normal'] else 'normal' }}"
+          >
+            {{ vata }} Level
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <h4>📋 Your Constitutional Summary</h4>
+        <p>
+          Based on your responses, your predominant dosha pattern shows
+          <strong>{{ kapha }}</strong> Kapha,
+          <strong>{{ pitta }}</strong> Pitta, and
+          <strong>{{ vata }}</strong> Vata levels. This unique combination
+          defines your individual constitution (Prakriti).
+        </p>
+      </div>
+
+      <div class="explanation">
+        <h3>Understanding Your Results</h3>
+        <p>
+          <strong>🌍 Kapha:</strong> Governs structure and stability. Normal =
+          balanced energy, Medium = mild sluggishness, High = excessive
+          weight/lethargy.
+        </p>
+        <p>
+          <strong>🔥 Pitta:</strong> Controls metabolism and transformation.
+          Normal = good digestion, Medium = mild irritability, High =
+          inflammation/anger.
+        </p>
+        <p>
+          <strong>💨 Vata:</strong> Manages movement and communication. Normal =
+          creative energy, Medium = mild anxiety, High = restlessness/insomnia.
+        </p>
+      </div>
+
+      <div class="disclaimer">
+        <p>
+          <strong>⚠️ Medical Disclaimer:</strong> This analysis is for
+          educational purposes only. Please consult a qualified Ayurvedic
+          practitioner or healthcare professional for personalized medical
+          advice.
+        </p>
+      </div>
+
+      <div class="action-buttons">
+        <a href="/" class="btn btn-primary">🔄 Take Test Again</a>
+        <a href="javascript:window.print()" class="btn btn-secondary"
+          >🖨️ Print Results</a
+        >
+      </div>
+    </div>
+  </body>
+</html>

@@ -107,8 +107,17 @@
       }
       .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: 1fr 1fr;
         gap: 20px;
+      }
+      .grid > div {
+        margin-bottom: 25px;
+      }
+      .single-column {
+        display: block;
+      }
+      .single-column > div {
+        margin-bottom: 25px;
       }
       .submit {
         display: block;
@@ -128,78 +137,7 @@
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
       }
-      .result {
-        margin-top: 30px;
-        padding: 25px;
-        background: linear-gradient(135deg, #e8f5e9 0%, #f0f8f0 100%);
-        border-left: 6px solid #4caf50;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-      .result h2 {
-        margin-top: 0;
-        color: #2f6d3c;
-        font-size: 1.5em;
-      }
-      .dosha-result {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        margin: 20px 0;
-      }
-      .dosha-card {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-      }
-      .dosha-name {
-        font-size: 1.3em;
-        font-weight: 600;
-        margin-bottom: 10px;
-      }
-      .kapha {
-        border-top: 4px solid #8bc34a;
-      }
-      .pitta {
-        border-top: 4px solid #ff5722;
-      }
-      .vata {
-        border-top: 4px solid #2196f3;
-      }
-      .level-high {
-        color: #d32f2f;
-      }
-      .level-medium {
-        color: #f57c00;
-      }
-      .level-normal {
-        color: #388e3c;
-      }
-      .explanation {
-        background: #fff3cd;
-        border: 1px solid #ffeaa7;
-        border-radius: 8px;
-        padding: 20px;
-        margin: 25px 0;
-      }
-      .explanation h3 {
-        color: #856404;
-        margin-top: 0;
-      }
-      .disclaimer {
-        background: #f8d7da;
-        border: 1px solid #f5c6cb;
-        border-radius: 8px;
-        padding: 20px;
-        margin: 25px 0;
-        text-align: center;
-      }
-      .disclaimer h4 {
-        color: #721c24;
-        margin-top: 0;
-      }
+
       .hidden-input {
         display: none;
       }
@@ -211,7 +149,8 @@
       Discover your constitutional balance through ancient wisdom
     </p>
 
-    <form method="POST">
+    {% if show_form != False %}
+    <form method="POST" action="/">
       <div class="section-title">📊 Personal Information</div>
       <div class="grid">
         <div>
@@ -237,7 +176,7 @@
       </div>
 
       <div class="section-title">😴 Sleep & Energy Patterns</div>
-      <div class="grid">
+      <div class="single-column">
         <div>
           <label
             >Sleep Quality
@@ -286,6 +225,7 @@
             type="hidden"
             name="sleepquality"
             class="hidden-input"
+            value=""
             required
           />
         </div>
@@ -342,7 +282,7 @@
       </div>
 
       <div class="section-title">🧠 Mental & Emotional State</div>
-      <div class="grid">
+      <div class="single-column">
         <div>
           <label
             >Stress Level
@@ -530,7 +470,7 @@
       </div>
 
       <div class="section-title">🍽️ Appetite & Digestion</div>
-      <div class="grid">
+      <div class="single-column">
         <div>
           <label
             >Appetite
@@ -560,7 +500,9 @@
           </div>
           <input type="hidden" name="appetite" class="hidden-input" required />
         </div>
+      </div>
 
+      <div class="grid">
         <div>
           <label>Bowel Movement</label>
           <select name="boweltype" required>
@@ -627,108 +569,6 @@
 
       <input type="submit" value="✨ Get Ayurvedic Diagnosis" class="submit" />
     </form>
-
-    {% if form_submitted %}
-    <div class="result">
-      <h2>🔎 Your Ayurvedic Constitution Analysis</h2>
-
-      <div class="dosha-result">
-        <div class="dosha-card kapha">
-          <div class="dosha-name">🌍 Kapha</div>
-          <div
-            class="level-{{ kapha.lower() if kapha.lower() in ['high', 'medium', 'normal'] else 'normal' }}"
-          >
-            Level: {{ kapha }}
-          </div>
-        </div>
-
-        <div class="dosha-card pitta">
-          <div class="dosha-name">🔥 Pitta</div>
-          <div
-            class="level-{{ pitta.lower() if pitta.lower() in ['high', 'medium', 'normal'] else 'normal' }}"
-          >
-            Level: {{ pitta }}
-          </div>
-        </div>
-
-        <div class="dosha-card vata">
-          <div class="dosha-name">💨 Vata</div>
-          <div
-            class="level-{{ vata.lower() if vata.lower() in ['high', 'medium', 'normal'] else 'normal' }}"
-          >
-            Level: {{ vata }}
-          </div>
-        </div>
-      </div>
-
-      <div class="explanation">
-        <h3>📖 Understanding Your Results</h3>
-
-        <h4>🌍 Kapha Dosha (Earth + Water)</h4>
-        <p>
-          <strong>Normal:</strong> Stable energy, good immunity, calm nature,
-          strong digestion
-        </p>
-        <p>
-          <strong>Medium:</strong> Slight sluggishness, mild weight gain
-          tendency, occasional lethargy
-        </p>
-        <p>
-          <strong>High:</strong> Excessive sleepiness, weight gain, slow
-          metabolism, depression, attachment
-        </p>
-
-        <h4>🔥 Pitta Dosha (Fire + Water)</h4>
-        <p>
-          <strong>Normal:</strong> Good digestion, sharp intellect, moderate
-          body temperature, leadership qualities
-        </p>
-        <p>
-          <strong>Medium:</strong> Mild irritability, occasional acidity,
-          moderate heat intolerance
-        </p>
-        <p>
-          <strong>High:</strong> Anger, inflammation, acidity, skin rashes,
-          excessive competitiveness
-        </p>
-
-        <h4>💨 Vata Dosha (Air + Space)</h4>
-        <p>
-          <strong>Normal:</strong> Creative, energetic, quick thinking, good
-          circulation
-        </p>
-        <p>
-          <strong>Medium:</strong> Mild anxiety, occasional restlessness,
-          variable energy
-        </p>
-        <p>
-          <strong>High:</strong> Anxiety, insomnia, dry skin, constipation,
-          scattered thoughts
-        </p>
-      </div>
-
-      <div class="disclaimer">
-        <h4>⚠️ Important Medical Disclaimer</h4>
-        <p>
-          <strong
-            >This analysis is for educational purposes only and should not
-            replace professional medical advice.</strong
-          >
-        </p>
-        <p>
-          These results are estimated predictions based on traditional Ayurvedic
-          principles and modern machine learning. They should be verified and
-          interpreted by a qualified Ayurvedic practitioner or healthcare
-          professional.
-        </p>
-        <p>
-          <strong
-            >Please consult with a licensed healthcare provider before making
-            any health-related decisions based on these results.</strong
-          >
-        </p>
-      </div>
-    </div>
     {% endif %}
 
     <script>
