@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ayurveda: Kapha/Pitta/Vata Predictor</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      max-width: 950px;
+      margin: 30px auto;
+      padding: 0 20px;
+      background: #f9fdf8;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #2f6d3c;
+      margin-bottom: 25px;
+    }
+    form {
+      background: #fff;
+      padding: 20px 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+    label {
+      display:block;
+      margin-top: 14px;
+      font-weight:600;
+      color:#2f6d3c;
+    }
+    input, select {
+      width:100%;
+      padding:10px;
+      margin-top:6px;
+      border:1px solid #ccc;
+      border-radius:6px;
+      box-sizing:border-box;
+      font-size:15px;
+    }
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap:18px;
+    }
+    .submit {
+      display:block;
+      margin: 25px auto 0;
+      padding:12px 24px;
+      font-size:17px;
+      font-weight:600;
+      background:#4caf50;
+      color:#fff;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      transition: background 0.3s;
+    }
+    .submit:hover {
+      background:#3b8e40;
+    }
+    .result {
+      margin-top:25px;
+      padding:18px;
+      background:#e8f5e9;
+      border-left:6px solid #4caf50;
+      border-radius:8px;
+    }
+    .result h2 {
+      margin-top:0;
+      color:#2f6d3c;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌿 Ayurvedic Dosha Diagnosis</h1>
+  <form method="POST">
+    <div class="grid">
+      <div>
+        <label>Age</label>
+        <input type="number" name="age" required>
+      </div>
+      <div>
+        <label>Gender</label>
+        <select name="gender" required>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      <div>
+        <label>Sleep Quality (1-5)</label>
+        <input type="number" name="sleepquality" min="1" max="5" required>
+      </div>
+      <div>
+        <label>Stress Level (1-5)</label>
+        <input type="number" name="stresslevel" min="1" max="5" required>
+      </div>
+      <div>
+        <label>Appetite (1-5)</label>
+        <input type="number" name="appetite" min="1" max="5" required>
+      </div>
+      <div>
+        <label>Energy Level (1-5)</label>
+        <input type="number" name="energylevel" min="1" max="5" required>
+      </div>
+      <div>
+        <label>Anger Level (1-5)</label>
+        <input type="number" name="angerlevel" min="1" max="5" required>
+      </div>
+      <div>
+        <label>Forgetfulness (1-5)</label>
+        <input type="number" name="forgetfulness" min="1" max="5" required>
+      </div>
+      <div>
+        <label>Anxiety Level (1-5)</label>
+        <input type="number" name="anxietylevel" min="1" max="5" required>
+      </div>
+      <div>
+        <label>Bowel Type</label>
+        <select name="boweltype" required>
+          <option value="Regular">Regular</option>
+          <option value="Loose">Loose</option>
+          <option value="Constipated">Constipated</option>
+        </select>
+      </div>
+      <div>
+        <label>Cravings</label>
+        <select name="cravings" required>
+          <option value="Sour">Sour</option>
+          <option value="Salty">Salty</option>
+          <option value="Spicy">Spicy</option>
+        </select>
+      </div>
+      <div>
+        <label>Skin Type</label>
+        <select name="skintype" required>
+          <option value="Oily">Oily</option>
+          <option value="Dry">Dry</option>
+          <option value="Sensitive">Sensitive</option>
+        </select>
+      </div>
+      <div>
+        <label>Hair Type</label>
+        <select name="hairtype" required>
+          <option value="Thick">Thick</option>
+          <option value="Thin">Thin</option>
+          <option value="Brittle">Brittle</option>
+        </select>
+      </div>
+      <div>
+        <label>Body Frame</label>
+        <select name="bodyframe" required>
+          <option value="Medium">Medium</option>
+          <option value="Large">Large</option>
+          <option value="Small">Small</option>
+        </select>
+      </div>
+      <div>
+        <label>Sweating</label>
+        <select name="sweating" required>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+    </div>
+    <input type="submit" value="✨ Get Diagnosis" class="submit">
+  </form>
+
+  {% if form_submitted %}
+  <div class="result">
+    <h2>🔎 Results</h2>
+    <p>Your Kapha level: {{ kapha }}</p>
+    <p>Your Pitta level: {{ pitta }}</p>
+    <p>Your Vata level: {{ vata }}</p>
+  </div>
+  {% endif %}
+</body>
+</html>
